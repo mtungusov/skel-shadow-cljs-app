@@ -7,4 +7,4 @@ dev: clean
 	shadow-cljs watch app
 
 prod: clean
-	clj -A:uberjar --target $(JAR)
+	shadow-cljs release app

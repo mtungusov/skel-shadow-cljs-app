@@ -18,5 +18,5 @@
   (secretary/set-config! :prefix "#")
   (defroute home "/"  [] (dispatch [:routes/home]))
   (defroute about "/about" [] (dispatch [:routes/about]))
-  (defroute "*" [] (aset js/window "location" "/"))
+  (defroute "*" [] (aset js/window "location" "./"))
   (hook-browser-navigation!))
