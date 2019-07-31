@@ -17,5 +17,6 @@
 ; Views
 (defn header []
   [:nav.navbar.navbar-light.header__search-wraper
-   [:a.navbar-brand {:href (routes/home)}
+  ;  [:a.navbar-brand {:href (routes/home)}
+   [:a.navbar-brand {:href "#"}
     [:span "Your Logo"]]])

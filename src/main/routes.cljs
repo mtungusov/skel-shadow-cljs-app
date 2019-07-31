@@ -1,7 +1,7 @@
 (ns routes
   (:import goog.History)
   (:require [re-frame.core :refer [dispatch] :as rf]
-            [secretary.core :as secretary :refer-macros [defroute]]
+            ; [secretary.core :as secretary :refer-macros [defroute]]
             [goog.events :as gevents]
             [goog.history.EventType :as EventType]
             [oops.core :refer [oget oset!]]))
@@ -12,7 +12,9 @@
     (gevents/listen
      EventType/NAVIGATE
      (fn [event]
-       (secretary/dispatch! (.-token event))))
+       (let [token (oget event "token")]
+        ;  (secretary/dispatch! token)
+         )))
     (.setEnabled true)))
 
 
@@ -28,8 +30,8 @@
    (assoc-in db [:ui :screen] :about)))
 
 
-(secretary/set-config! :prefix "#")
-(defroute home "/"  [] (dispatch [:routes/home]))
-(defroute about "/about" [] (dispatch [:routes/about]))
-(defroute "*" [] (oset! js/window "location" "./"))
-(hook-browser-navigation!)
+; (secretary/set-config! :prefix "#")
+; (defroute home "/"  [] (dispatch [:routes/home]))
+; (defroute about "/about" [] (dispatch [:routes/about]))
+; (defroute "*" [] (oset! js/window "location" "./"))
+; (hook-browser-navigation!)
