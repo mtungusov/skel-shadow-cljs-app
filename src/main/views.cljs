@@ -1,20 +1,27 @@
 (ns views
   (:require [re-frame.core :refer [subscribe]]
-            [subs]))
+            [ui.components.commons :refer [header]]
+            [ui.screens.home :as s-home]))
+
+; Events
+; Effects
+
+; Subscriptions
+(rf/reg-sub
+ :templ/msg
+ (fn [db _]
+   (:msg db)))
 
 
+(rf/reg-sub
+ :templ/page
+ (fn [db _]
+   (:page db)))
+
+; Views
 (defn app-root []
-  (let [msg (subscribe [::subs/msg])
-        page (subscribe [::subs/page])]
-      [:div
-       [:h3 "Demo re-frame"]
-       [:p @msg]
-       [:p (str "Current page: " @page)]
-       [:div
-        [:a {:href "/"} "Home"]
-        [:a {:href "#/"} "#Home"]
-        [:br]
-        [:a {:href "/about"} "About"]
-        [:a {:href "#/about"} "#About"]
-        [:br]
-        [:a {:href "#/about-not-found"} "#About Not found"]]]))
+  (let [msg (subscribe [::templ/msg])
+        page (subscribe [:templ/page])]
+      [:div.container
+       [header]
+       [s-home/core msg page]]))

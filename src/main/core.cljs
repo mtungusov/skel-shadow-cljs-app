@@ -2,7 +2,7 @@
   (:require [goog.dom :as gdom]
             [reagent.core :as r]
             [re-frame.core :as rf]
-            [events]
+            [app-db :refer [default-db]]
             [routes]
             [views :refer [app-root]]))
 
@@ -13,26 +13,23 @@
     (println "dev mode")))
 
 
-(defn- app-element [id]
-  (gdom/getElement id))
-
-
-(defn- mount [el component]
-  (r/render-component component el))
-
-
 (defn- mount-app [id component]
-  (when-let [el (app-element id)]
-    (mount el component)))
+  (when-let [el (gdom/getElement id)]
+    (r/render-component component el)))
 
 
-(defn ^:after-load on-reload []
+(rf/reg-event-fx
+ :initialize
+ (fn  [_ _]
+   {:db default-db}))
+
+
+(defn ^:after-load on-reload! []
   (rf/clear-subscription-cache!)
   (mount-app "app" [app-root]))
 
 
-(defn ^:export init []
+(defn ^:export init! []
   (dev-setup)
-  (routes/app-routes)
-  (rf/dispatch-sync [:initialize-db])
+  (rf/dispatch-sync [:initialize])
   (mount-app "app" [app-root]))
