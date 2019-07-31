@@ -4,7 +4,7 @@ clean:
 	rm -rf public/js/*
 
 dev: clean 
-	shadow-cljs watch app
+	shadow-cljs -A:dev watch app
 
 prod: clean
-	shadow-cljs release app
+	shadow-cljs -A:prod release app

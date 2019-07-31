@@ -1,5 +1,5 @@
 (ns views
-  (:require [re-frame.core :refer [subscribe]]
+  (:require [re-frame.core :refer [subscribe] :as rf]
             [ui.components.commons :refer [header]]
             [ui.screens.home :as s-home]))
 
@@ -14,14 +14,14 @@
 
 
 (rf/reg-sub
- :templ/page
+ :templ/screen
  (fn [db _]
-   (:page db)))
+   (get-in db [:ui :screen])))
 
 ; Views
 (defn app-root []
-  (let [msg (subscribe [::templ/msg])
-        page (subscribe [:templ/page])]
+  (let [msg @(subscribe [:templ/msg])
+        screen @(subscribe [:templ/screen])]
       [:div.container
        [header]
-       [s-home/core msg page]]))
+       (s-home/core msg screen)]))
