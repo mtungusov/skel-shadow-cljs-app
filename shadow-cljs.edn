@@ -17,9 +17,9 @@
                                       day8.re-frame-10x.preload]}
                 :release {:closure-defines {goog.DEBUG false}
                           :compiler-options {
-                                             :pretty-print true
+                                            ;  :pretty-print true
                                             ;  :warnings true
-                                             :source-map false
+                                            ;  :source-map false
                                             ;  :source-map-path "public/js/compiled"
                                             ;  :source-map-timestamp true
                                             ;  :parallel-build true
