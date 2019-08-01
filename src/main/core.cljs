@@ -3,7 +3,7 @@
             [reagent.core :as r]
             [re-frame.core :as rf]
             [app-db :refer [default-db]]
-            [routes]
+            [routes :refer [init-routes!]]
             [views :refer [app-root]]))
 
 
@@ -26,10 +26,12 @@
 
 (defn ^:after-load on-reload! []
   (rf/clear-subscription-cache!)
+  (init-routes!)
   (mount-app "app" [app-root]))
 
 
 (defn ^:export init! []
   (dev-setup)
   (rf/dispatch-sync [:initialize])
+  (init-routes!)
   (mount-app "app" [app-root]))

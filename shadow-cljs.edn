@@ -11,7 +11,9 @@
                 :modules {:main {:init-fn core/init!}}
                 :dev {:closure-defines {goog.DEBUG true
                                         "re_frame.trace.trace_enabled_QMARK_" true
-                                        "day8.re_frame.tracing.trace_enabled_QMARK_" true}}
+                                        "day8.re_frame.tracing.trace_enabled_QMARK_" true}
+                      :compiler-options {:source-map true
+                                         :pretty-print true}}
                 :devtools {:after-load core/on-reload!
                            :preloads [devtools.preload
                                       day8.re-frame-10x.preload]}
